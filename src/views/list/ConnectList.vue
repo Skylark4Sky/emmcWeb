@@ -143,7 +143,7 @@
         requestCond: { 'access_way': '0', 'time': 'create_time' },
         // 加载数据方法 必须为 Promise 对象
         loadData: parameter => {
-          console.log('this.requestCond:' + JSON.stringify(this.requestCond))
+          // console.log('this.requestCond:' + JSON.stringify(this.requestCond))
           const requestParameters = Object.assign({}, { userID: this.$store.getters.userID }, parameter)
           if (Object.keys(this.requestCond).length !== 0) {
             if (requestParameters.requestCond !== null) {

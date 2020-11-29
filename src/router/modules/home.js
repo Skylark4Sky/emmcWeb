@@ -7,13 +7,13 @@ export default
   name: 'dashboard',
   redirect: '/dashboard/analysis',
   component: RouteView,
-  meta: { title: 'menu.dashboard', icon: bxAnaalyse, permission: [ 'dashboard' ] },
+  meta: { title: '数据统计', icon: bxAnaalyse, permission: [ 'dashboard' ] },
   children: [
     {
       path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
       name: 'Analysis',
       component: () => import('@/views/dashboard/Analysis'),
-      meta: { title: 'menu.dashboard.analysis', permission: [ 'dashboard' ] }
+      meta: { title: '数据汇总', permission: [ 'dashboard' ] }
     }
   ]
 }

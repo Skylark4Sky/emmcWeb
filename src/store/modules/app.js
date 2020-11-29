@@ -66,6 +66,7 @@ const app = {
     },
     [TOGGLE_COLOR]: (state, color) => {
       state.color = color
+      console.log('TOGGLE_COLOR:' + color)
       storage.set(TOGGLE_COLOR, color)
     },
     [TOGGLE_WEAK]: (state, mode) => {

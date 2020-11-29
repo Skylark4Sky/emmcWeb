@@ -6,31 +6,31 @@
     :confirmLoading="loading"
     :closable="true"
     @ok="() => { $emit('ok') }"
-    @cancel="() => { $emit('cancel') }"
+    @cancel="handleCancel"
     footer=""
     :centered="true"
   >
     <a-spin :spinning="loading" size="small">
-      <a-descriptions v-if="showDataList(this.model.behavior)" :title="'设备序列号: ' + this.model.device_sn">
-        <a-descriptions-item label="上报状态">{{ this.model.behavior }}</a-descriptions-item>
+      <a-descriptions v-if="showDataList(this.behavior)" :title="'设备序列号: ' + this.model.device_sn">
+        <a-descriptions-item label="上报状态">{{ this.behavior }}</a-descriptions-item>
         <a-descriptions-item label="上报标志">{{ this.model.transfer_id }}</a-descriptions-item>
         <a-descriptions-item label="上报时间">{{ moment(this.model.create_time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
       </a-descriptions>
 
-      <a-descriptions v-if="isShowOther(this.model.behavior)" :title="'设备序列号: ' + this.model.device_sn">
-        <a-descriptions-item label="上报状态">{{ this.model.behavior }}</a-descriptions-item>
+      <a-descriptions v-if="isShowOther(this.behavior)" :title="'设备序列号: ' + this.model.device_sn">
+        <a-descriptions-item label="上报状态">{{ this.behavior }}</a-descriptions-item>
         <a-descriptions-item label="上报标志">{{ this.model.transfer_id }}</a-descriptions-item>
         <a-descriptions-item label="上报时间">{{ moment(this.model.create_time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
       </a-descriptions>
 
-      <a-descriptions v-if="isSetConfig(this.model.behavior)" :title="'设备序列号: ' + this.model.device_sn">
-        <a-descriptions-item label="上报状态">{{ this.model.behavior }}</a-descriptions-item>
+      <a-descriptions v-if="isSetConfig(this.behavior)" :title="'设备序列号: ' + this.model.device_sn">
+        <a-descriptions-item label="上报状态">{{ this.behavior }}</a-descriptions-item>
         <a-descriptions-item label="上报标志">{{ this.model.transfer_id }}</a-descriptions-item>
         <a-descriptions-item label="空载时间">{{ this.data.time }}</a-descriptions-item>
         <a-descriptions-item label="上报时间">{{ moment(this.model.create_time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
       </a-descriptions>
 
-      <a-descriptions v-if="isChargeTask(this.model.behavior)" :title="'设备序列号: ' + this.model.device_sn">
+      <a-descriptions v-if="isChargeTask(this.behavior)" :title="'设备序列号: ' + this.model.device_sn">
         <a-descriptions-item label="上报端口" >{{ this.data.id }}</a-descriptions-item>
         <a-descriptions-item label="上报标志">{{ this.model.transfer_id }}</a-descriptions-item>
         <a-descriptions-item label="最大电量">{{ this.data.energy }}</a-descriptions-item>
@@ -39,7 +39,7 @@
         <a-descriptions-item label="上报时间">{{ moment(this.model.create_time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
       </a-descriptions>
 
-      <a-descriptions v-if="isExitChargeTask(this.model.behavior)" :title="'设备序列号: ' + this.model.device_sn">
+      <a-descriptions v-if="isExitChargeTask(this.behavior)" :title="'设备序列号: ' + this.model.device_sn">
         <a-descriptions-item label="上报端口" >{{ this.data.id }}</a-descriptions-item>
         <a-descriptions-item label="强制停止">{{ this.data.energy ? '是':'否' }}</a-descriptions-item>
         <a-descriptions-item label="上报标志">{{ this.model.transfer_id }}</a-descriptions-item>
@@ -47,8 +47,9 @@
       </a-descriptions>
 
       <s-table
-        v-if="showDataList(this.model.behavior)"
+        v-if="showDataList(this.behavior)"
         ref="table"
+        rowKey="id"
         size="middle"
         :columns="columns"
         :data="loadDetailList"
@@ -129,12 +130,37 @@ export default {
       default: () => []
     }
   },
+  data () {
+    this.columns = columns
+    this.data = null
+    return {
+      behavior: 0,
+      // 加载数据方法 必须为 Promise 对象
+      loadDetailList: () => {
+        return new Promise(resolve => {
+          const datalist = JSON.parse(this.model.payload_data)
+          resolve({
+            data: { 'datalist': datalist, 'page': { pageNum: 1, total: 0 } }
+          })
+        }).then(res => {
+          return res
+        })
+      }
+    }
+  },
   created () {
     this.$watch('model', () => {
       this.data = JSON.parse(this.model.payload_data)
-      console.log('JSON.parse(this.model.payload_data):' + JSON.stringify(this.data))
-      if (this.showDataList(this.model.behavior)) {
-        this.model && this.$refs.table.refresh(true)
+      this.behavior = this.model.behavior
+      if (this.showDataList(this.behavior)) {
+        new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve()
+          }, 0)
+        }).then(res => {
+          // 刷新表格
+          this.$refs.table.refresh(true)
+        })
       }
     })
   },
@@ -185,23 +211,10 @@ export default {
         res = true
       }
       return res
-    }
-  },
-  data () {
-    this.columns = columns
-    this.data = null
-    return {
-      // 加载数据方法 必须为 Promise 对象
-      loadDetailList: () => {
-        return new Promise(resolve => {
-          const datalist = JSON.parse(this.model.payload_data)
-          resolve({
-            data: { 'datalist': datalist, 'page': { pageNum: 1, total: datalist.length } }
-          })
-        }).then(res => {
-          return res
-        })
-      }
+    },
+    handleCancel () {
+      this.data = null
+      this.$emit('cancel')
     }
   }
 }

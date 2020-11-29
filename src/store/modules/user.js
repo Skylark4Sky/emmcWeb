@@ -43,7 +43,7 @@ const user = {
         login(userInfo).then(response => {
           const res = response.data
           const result = res.data
-          console.log('Login--->' + JSON.stringify(result))
+          // console.log('Login--->' + JSON.stringify(result))
           const tokenuserEntity = result.tokenInfo
           // console.log('data Login:' + tokenuserEntity.token + 'expire_ts' + tokenuserEntity.expire_ts)
           storage.set(ACCESS_TOKEN, tokenuserEntity.token, tokenuserEntity.expire_ts)
