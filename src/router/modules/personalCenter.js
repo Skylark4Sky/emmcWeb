@@ -28,12 +28,12 @@ export default
           component: () => import('@/views/account/settings/Security'),
           meta: { title: '安全设置', hidden: true, permission: [ 'personalSecurity' ] }
         },
-        {
-          path: '/account/settings/custom',
-          name: 'CustomSettings',
-          component: () => import('@/views/account/settings/Custom'),
-          meta: { title: '个性化设置', hidden: true, permission: [ 'personalCustom' ] }
-        },
+        // {
+        //   path: '/account/settings/custom',
+        //   name: 'CustomSettings',
+        //   component: () => import('@/views/account/settings/Custom'),
+        //   meta: { title: '个性化设置', hidden: true, permission: [ 'personalCustom' ] }
+        // },
         {
           path: '/account/settings/notification',
           name: 'NotificationSettings',

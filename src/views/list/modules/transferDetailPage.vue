@@ -13,37 +13,37 @@
     <a-spin :spinning="loading" size="small">
       <a-descriptions v-if="showDataList(this.behavior)" :title="'设备序列号: ' + this.model.device_sn">
         <a-descriptions-item label="上报状态">{{ this.behavior }}</a-descriptions-item>
-        <a-descriptions-item label="上报标志">{{ this.model.transfer_id }}</a-descriptions-item>
-        <a-descriptions-item label="上报时间">{{ moment(this.model.create_time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
+        <a-descriptions-item label="上报标志">{{ this.transfer_id }}</a-descriptions-item>
+        <a-descriptions-item label="上报时间">{{ moment(this.time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
       </a-descriptions>
 
       <a-descriptions v-if="isShowOther(this.behavior)" :title="'设备序列号: ' + this.model.device_sn">
         <a-descriptions-item label="上报状态">{{ this.behavior }}</a-descriptions-item>
-        <a-descriptions-item label="上报标志">{{ this.model.transfer_id }}</a-descriptions-item>
-        <a-descriptions-item label="上报时间">{{ moment(this.model.create_time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
+        <a-descriptions-item label="上报标志">{{ this.transfer_id }}</a-descriptions-item>
+        <a-descriptions-item label="上报时间">{{ moment(this.time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
       </a-descriptions>
 
       <a-descriptions v-if="isSetConfig(this.behavior)" :title="'设备序列号: ' + this.model.device_sn">
         <a-descriptions-item label="上报状态">{{ this.behavior }}</a-descriptions-item>
-        <a-descriptions-item label="上报标志">{{ this.model.transfer_id }}</a-descriptions-item>
+        <a-descriptions-item label="上报标志">{{ this.transfer_id }}</a-descriptions-item>
         <a-descriptions-item label="空载时间">{{ this.data.time }}</a-descriptions-item>
-        <a-descriptions-item label="上报时间">{{ moment(this.model.create_time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
+        <a-descriptions-item label="上报时间">{{ moment(this.time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
       </a-descriptions>
 
       <a-descriptions v-if="isChargeTask(this.behavior)" :title="'设备序列号: ' + this.model.device_sn">
         <a-descriptions-item label="上报端口" >{{ this.data.id }}</a-descriptions-item>
-        <a-descriptions-item label="上报标志">{{ this.model.transfer_id }}</a-descriptions-item>
+        <a-descriptions-item label="上报标志">{{ this.transfer_id }}</a-descriptions-item>
         <a-descriptions-item label="最大电量">{{ this.data.energy }}</a-descriptions-item>
         <a-descriptions-item label="最大电流">{{ this.data.electricity }}</a-descriptions-item>
         <a-descriptions-item label="最大时间">{{ this.data.time }}</a-descriptions-item>
-        <a-descriptions-item label="上报时间">{{ moment(this.model.create_time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
+        <a-descriptions-item label="上报时间">{{ moment(this.time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
       </a-descriptions>
 
       <a-descriptions v-if="isExitChargeTask(this.behavior)" :title="'设备序列号: ' + this.model.device_sn">
         <a-descriptions-item label="上报端口" >{{ this.data.id }}</a-descriptions-item>
         <a-descriptions-item label="强制停止">{{ this.data.energy ? '是':'否' }}</a-descriptions-item>
-        <a-descriptions-item label="上报标志">{{ this.model.transfer_id }}</a-descriptions-item>
-        <a-descriptions-item label="上报时间">{{ moment(this.model.create_time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
+        <a-descriptions-item label="上报标志">{{ this.transfer_id }}</a-descriptions-item>
+        <a-descriptions-item label="上报时间">{{ moment(this.time).format('YYYYMMDD HH:mm:ss') }}</a-descriptions-item>
       </a-descriptions>
 
       <s-table
@@ -135,6 +135,8 @@ export default {
     this.data = null
     return {
       behavior: 0,
+      time: 0,
+      transfer_id: 0,
       // 加载数据方法 必须为 Promise 对象
       loadDetailList: () => {
         return new Promise(resolve => {
@@ -152,6 +154,8 @@ export default {
     this.$watch('model', () => {
       this.data = JSON.parse(this.model.payload_data)
       this.behavior = this.model.behavior
+      this.time = this.model.create_time
+      this.transfer_id = this.model.transfer_id
       if (this.showDataList(this.behavior)) {
         new Promise((resolve, reject) => {
           setTimeout(() => {
@@ -213,7 +217,6 @@ export default {
       return res
     },
     handleCancel () {
-      this.data = null
       this.$emit('cancel')
     }
   }
