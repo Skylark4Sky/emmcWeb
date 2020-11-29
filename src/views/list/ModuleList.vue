@@ -1,5 +1,10 @@
 <template>
   <page-header-wrapper>
+    <!-- actions -->
+    <template v-slot:extra v-if="this.showBackBtn">
+      <a-button type="primary" @click="goBackPrevious">返回上一页</a-button>
+    </template>
+
     <a-card :bordered="false">
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
@@ -61,7 +66,7 @@
             <a-col :md="!advanced && 8 || 24" :sm="24">
               <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
                 <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-                <a-button style="margin-left: 8px" @click="() => this.requestCond = {}">重置</a-button>
+                <a-button style="margin-left: 8px" @click="() => this.requestCond = { 'access_way': '0' }">重置</a-button>
                 <a @click="toggleAdvanced" style="margin-left: 8px">
                   {{ advanced ? '收起' : '展开' }}
                   <a-icon :type="advanced ? 'up' : 'down'"/>
@@ -166,6 +171,7 @@
         mdl: null,
         // 高级搜索 展开/关闭
         advanced: false,
+        showBackBtn: false,
         // 查询参数
         requestCond: { 'access_way': '0' },
         // 加载数据方法 必须为 Promise 对象
@@ -195,9 +201,20 @@
       }
     },
     created () {
-      const { deviceID } = this.$route.params
-      if (deviceID && deviceID !== null && deviceID !== undefined) {
-        this.requestCond = Object.assign({}, this.requestCond, { 'device_id': deviceID })
+      const { deviceID, isBack, requestCond, showBackBtn } = this.$route.params
+      // console.log('this.$route.params :' + JSON.stringify(this.$route.params))
+      if (isBack) {
+        // console.log('isBack------')
+        this.requestCond = requestCond
+        if (showBackBtn) {
+          // console.log('showBackBtn------')
+          this.showBackBtn = true
+        }
+      } else {
+        if (deviceID && deviceID !== null && deviceID !== undefined) {
+          this.requestCond = Object.assign({}, this.requestCond, { 'device_id': deviceID })
+          this.showBackBtn = true
+        }
       }
     },
     filters: {
@@ -218,13 +235,40 @@
           date: moment(new Date())
         }
       },
-      previewConnectDetail  (record) {
+      previewConnectDetail (record) {
+        const { pageNum } = this.$route.params
         this.$router.push({
           path: '/deviceManage/connectList/:pageNum([1-9]\\d*)?',
           name: 'connectList',
           params: {
+            curPagePath: '/deviceManage/moduleList/',
+            curPageName: 'moduleList',
+            curPageNum: pageNum,
+            curRequestCond: this.requestCond,
+            curShowBackBtn: this.showBackBtn,
+            otherRouterParam: this.$route.params,
             moduleSn: record.module_sn,
             accessWay: record.access_way
+          }
+        })
+      },
+      goBackPrevious () {
+       const { showBackBtn } = this.$route.params
+       let BackPreviousPageParam = this.$route.params
+
+       if (showBackBtn) {
+         BackPreviousPageParam = this.$route.params.otherRouterParam
+       }
+
+       const { curPageNum, curPageName, curPagePath, curRequestCond } = BackPreviousPageParam
+        const PagePath = curPagePath + curPageNum
+        this.$router.push({
+          path: PagePath,
+          name: curPageName,
+          params: {
+            pageNum: curPageNum,
+            isBack: true,
+            requestCond: curRequestCond
           }
         })
       }

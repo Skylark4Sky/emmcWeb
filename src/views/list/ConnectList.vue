@@ -1,5 +1,10 @@
 <template>
   <page-header-wrapper>
+    <!-- actions -->
+    <template v-slot:extra v-if="this.showBackBtn">
+      <a-button type="primary" @click="goBackPrevious">返回上一页</a-button>
+    </template>
+
     <a-card :bordered="false">
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
@@ -53,7 +58,7 @@
             <a-col :md="!advanced && 8 || 24" :sm="24">
               <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
                 <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-                <a-button style="margin-left: 8px" @click="() => this.requestCond = {}">重置</a-button>
+                <a-button style="margin-left: 8px" @click="() => this.requestCond = { 'access_way': '0', 'time': 'create_time' } ">重置</a-button>
                 <a @click="toggleAdvanced" style="margin-left: 8px">
                   {{ advanced ? '收起' : '展开' }}
                   <a-icon :type="advanced ? 'up' : 'down'"/>
@@ -139,6 +144,7 @@
         mdl: null,
         // 高级搜索 展开/关闭
         advanced: false,
+        showBackBtn: false,
         // 查询参数
         requestCond: { 'access_way': '0', 'time': 'create_time' },
         // 加载数据方法 必须为 Promise 对象
@@ -175,10 +181,13 @@
 
       if (moduleSnOK && accessWayOK) {
         this.requestCond = Object.assign({}, this.requestCond, { 'module_sn': moduleSn, 'access_way': accessWay.toString() })
+        this.showBackBtn = true
       } else if (moduleSnOK) {
         this.requestCond = Object.assign({}, this.requestCond, { 'module_sn': moduleSn })
+        this.showBackBtn = true
       } else if (accessWayOK) {
         this.requestCond = Object.assign({}, this.requestCond, { 'access_way': accessWay.toString() })
+        this.showBackBtn = true
       }
     },
     filters: {
@@ -198,6 +207,21 @@
         this.queryParam = {
           date: moment(new Date())
         }
+      },
+      goBackPrevious () {
+        const { curPageNum, curPageName, curPagePath, curRequestCond, curShowBackBtn, otherRouterParam } = this.$route.params
+        const PagePath = curPagePath + curPageNum
+        this.$router.push({
+          path: PagePath,
+          name: curPageName,
+          params: {
+            pageNum: curPageNum,
+            showBackBtn: curShowBackBtn,
+            otherRouterParam: otherRouterParam,
+            isBack: true,
+            requestCond: curRequestCond
+          }
+        })
       }
     }
   }

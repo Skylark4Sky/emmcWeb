@@ -70,7 +70,7 @@
             <a-col :md="!advanced && 8 || 24" :sm="24">
               <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
                 <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-                <a-button style="margin-left: 8px" @click="() => this.requestCond = {}">重置</a-button>
+                <a-button style="margin-left: 8px" @click="() => this.requestCond = { 'status': '255', 'access_way': '0' }">重置</a-button>
                 <a-button type="primary" style="margin-left: 8px" @click="syncDeviceStatus()">刷新设备状态</a-button>
                 <a @click="toggleAdvanced" style="margin-left: 8px">
                   {{ advanced ? '收起' : '展开' }}
@@ -106,11 +106,15 @@
         </span>
         <span slot="action" slot-scope="text, record">
           <template>
-            <a @click="handleEdit(record)">配置</a>
+            <a @click="handleEdit(record)">详情</a>
             <a-divider type="vertical" />
-            <a @click="handleModuleSearchView(record)">模组</a>
-            <a-divider type="vertical" />
-            <a @click="handleLogSearchView(record)">日志</a>
+            <a-dropdown>
+              <a-menu slot="overlay">
+                <a-menu-item><a @click="handleModuleSearchView(record)">模组信息</a></a-menu-item>
+                <a-menu-item><a @click="handleLogSearchView(record)">日志上报</a></a-menu-item>
+              </a-menu>
+              <a>更多<a-icon type="down"/></a>
+            </a-dropdown>
           </template>
         </span>
       </s-table>
@@ -274,6 +278,12 @@ export default {
       return statusMap[type].status
     }
   },
+  created () {
+    const { isBack, requestCond } = this.$route.params
+    if (isBack) {
+      this.requestCond = requestCond
+    }
+  },
   computed: {
     rowSelection () {
       return {
@@ -337,19 +347,29 @@ export default {
       form.resetFields() // 清理表单数据（可不做）
     },
     handleModuleSearchView (record) {
+      const { pageNum } = this.$route.params
       this.$router.push({
         path: '/deviceManage/moduleList/:pageNum([1-9]\\d*)?',
         name: 'moduleList',
         params: {
+          curPagePath: '/deviceManage/deviceList/',
+          curPageName: 'deviceList',
+          curPageNum: pageNum,
+          curRequestCond: this.requestCond,
           deviceID: record.id
         }
       })
     },
     handleLogSearchView (record) {
+      const { pageNum } = this.$route.params
       this.$router.push({
         path: '/deviceManage/transferList/:pageNum([1-9]\\d*)?',
         name: 'transferList',
         params: {
+          curPagePath: '/deviceManage/deviceList/',
+          curPageName: 'deviceList',
+          curPageNum: pageNum,
+          curRequestCond: this.requestCond,
           deviceSn: record.device_sn
         }
       })
