@@ -95,8 +95,8 @@
         <span slot="access_way" slot-scope="text">
           {{ text | accessWayFilter }}
         </span>
-        <span slot="worker" slot-scope="text">
-          {{ text | workerHandle }}
+        <span slot="worker" slot-scope="text, record">
+          {{ text | workerHandle(record) }}
         </span>
         <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
@@ -106,7 +106,7 @@
         </span>
         <span slot="action" slot-scope="text, record">
           <template>
-            <a @click="handleEdit(record)">刷新</a>
+            <a @click="handleEdit(record)">配置</a>
             <a-divider type="vertical" />
             <a @click="handleModuleSearchView(record)">模组</a>
             <a-divider type="vertical" />
@@ -221,6 +221,7 @@ export default {
       mdl: null,
       // 高级搜索 展开/关闭
       advanced: false,
+      totalFilters: { 'key': 'status', 'val': 0 },
       // 查询参数
       requestCond: { 'status': '255', 'access_way': '0' },
       // 加载数据方法 必须为 Promise 对象
@@ -253,9 +254,12 @@ export default {
     }
   },
   filters: {
-
-    workerHandle (worker) {
-      return worker + '个'
+    workerHandle (worker, record) {
+      if (record.status === 2) {
+        return worker + '个'
+      }
+      record.worker = 0
+      return 0 + '个'
     },
     accessWayFilter (type) {
       return accessWayMap[type].text
@@ -329,7 +333,6 @@ export default {
     },
     handleCancel () {
       this.visible = false
-
       const form = this.$refs.createModal.form
       form.resetFields() // 清理表单数据（可不做）
     },
@@ -350,6 +353,10 @@ export default {
           deviceSn: record.device_sn
         }
       })
+    },
+    onSelectChange (selectedRowKeys, selectedRows) {
+      this.selectedRowKeys = selectedRowKeys
+      this.selectedRows = selectedRows
     },
     toggleAdvanced () {
       this.advanced = !this.advanced
