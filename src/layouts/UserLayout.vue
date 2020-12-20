@@ -1,27 +1,34 @@
 <template>
+
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
-      <div class="top">
-        <div class="header">
-          <a href="/">
-            <span class="title">GisunLink</span>
-          </a>
-        </div>
-        <div class="desc">
-          后台维护管理系统
-        </div>
+      <div class="user-layout-lang">
+        <select-lang class="select-lang-trigger" />
       </div>
-
-      <router-view />
-
-      <div class="footer">
-        <div class="links">
-          <a href="_self">帮助</a>
-          <a href="_self">隐私</a>
-          <a href="_self">条款</a>
+      <div class="user-layout-content">
+        <div class="top">
+          <div class="header">
+            <a href="/">
+              <img src="~@/assets/logo.svg" class="logo" alt="logo">
+              <span class="title">GisunLink</span>
+            </a>
+          </div>
+          <div class="desc">
+            {{ $t('layouts.userLayout.title') }}
+          </div>
         </div>
-        <div class="copyright">
-          Copyright &copy; 2020 GisunLink
+
+        <router-view />
+
+        <div class="footer">
+          <div class="links">
+            <a href="_self">帮助</a>
+            <a href="_self">隐私</a>
+            <a href="_self">条款</a>
+          </div>
+          <div class="copyright">
+            Copyright &copy; 2018 GisunLink
+          </div>
         </div>
       </div>
     </div>
@@ -30,9 +37,13 @@
 
 <script>
 import { deviceMixin } from '@/store/device-mixin'
+import SelectLang from '@/components/SelectLang'
 
 export default {
   name: 'UserLayout',
+  components: {
+    SelectLang
+  },
   mixins: [deviceMixin],
   mounted () {
     document.body.classList.add('userLayout')
@@ -45,28 +56,45 @@ export default {
 
 <style lang="less" scoped>
 #userLayout.user-layout-wrapper {
-    height: 100%;
+  height: 100%;
 
-    &.mobile {
-      .container {
-        .main {
-          max-width: 368px;
-          width: 98%;
-        }
+  &.mobile {
+    .container {
+      .main {
+        max-width: 368px;
+        width: 98%;
+      }
+    }
+  }
+
+  .container {
+    width: 100%;
+    min-height: 100%;
+    background: #f0f2f5 url(~@/assets/background.svg) no-repeat 50%;
+    background-size: 100%;
+    //padding: 50px 0 84px;
+    position: relative;
+
+    .user-layout-lang {
+      width: 100%;
+      height: 40px;
+      line-height: 44px;
+      text-align: right;
+
+      .select-lang-trigger {
+        cursor: pointer;
+        padding: 12px;
+        margin-right: 24px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        vertical-align: middle;
       }
     }
 
-    .container {
-      width: 100%;
-      min-height: 100%;
-      background: #f0f2f5 url(~@/assets/background.svg) no-repeat 50%;
-      background-size: 100%;
-      padding: 110px 0 144px;
-      position: relative;
-
-      a {
-        text-decoration: none;
-      }
+    .user-layout-content {
+      padding: 32px 0 24px;
 
       .top {
         text-align: center;
@@ -116,7 +144,7 @@ export default {
       }
 
       .footer {
-        position: absolute;
+        // position: absolute;
         width: 100%;
         bottom: 0;
         padding: 0 16px;
@@ -140,5 +168,11 @@ export default {
         }
       }
     }
+
+    a {
+      text-decoration: none;
+    }
+
   }
+}
 </style>

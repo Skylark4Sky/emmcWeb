@@ -5,9 +5,10 @@ export default {
   data () {
     return {
       needTotalList: [],
-      sortedInfo: null,
+
       selectedRows: [],
       selectedRowKeys: [],
+
       localLoading: false,
       localDataSource: [],
       localPagination: Object.assign({}, this.pagination)
@@ -116,8 +117,6 @@ export default {
     this.needTotalList = this.initTotalList(this.columns)
     this.loadData()
   },
-  computed: {
-  },
   methods: {
     /**
      * 表格重新加载方法
@@ -151,13 +150,18 @@ export default {
       this.localLoading = true
       const parameter = Object.assign({
           pageNum: (pagination && pagination.current) ||
-            this.showPagination && this.localPagination.current || this.pageNum,
-          pageSize: (pagination && pagination.pageSize) ||
-            this.showPagination && this.localPagination.pageSize || this.pageSize
-        },
-    {
-          ...filters
-        }
+          this.showPagination && this.localPagination.current || this.pageNum,
+        pageSize: (pagination && pagination.pageSize) ||
+          this.showPagination && this.localPagination.pageSize || this.pageSize
+      },
+      (sorter && sorter.field && {
+        sortField: sorter.field
+      }) || {},
+      (sorter && sorter.order && {
+        sortOrder: sorter.order
+      }) || {}, {
+        ...filters
+      }
       )
       if ((sorter && sorter.field) && (sorter && sorter.columnKey)) {
         if (sorter !== null && sorter !== undefined) {

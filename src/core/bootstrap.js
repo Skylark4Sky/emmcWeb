@@ -15,7 +15,6 @@ import defaultSettings from '@/config/defaultSettings'
 export default function Initializer () {
   // printANSI() // 请自行移除该行.  please remove this line
 
-  console.log('Initializer:' + storage.get(TOGGLE_COLOR, defaultSettings.primaryColor))
   store.commit(TOGGLE_LAYOUT, storage.get(TOGGLE_LAYOUT, defaultSettings.layout))
   store.commit(TOGGLE_FIXED_HEADER, storage.get(TOGGLE_FIXED_HEADER, defaultSettings.fixedHeader))
   store.commit(TOGGLE_FIXED_SIDEBAR, storage.get(TOGGLE_FIXED_SIDEBAR, defaultSettings.fixSiderbar))

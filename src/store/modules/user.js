@@ -97,7 +97,6 @@ const user = {
           commit('SET_TOKEN', '')
           commit('SET_ROLES', [])
           storage.remove(ACCESS_TOKEN)
-          console.log('Logout------')
           resolve()
         }).catch(() => {
           resolve()

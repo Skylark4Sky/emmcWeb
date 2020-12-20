@@ -12,10 +12,10 @@
             <a-input
               size="large"
               type="text"
-              placeholder="手机/帐号/邮箱"
+              :placeholder="$t('user.login.username.placeholder')"
               v-decorator="[
                 'account',
-                {rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
+                {rules: [{ required: true, message: $t('user.userName.required') }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
               ]"
             >
               <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
@@ -25,10 +25,10 @@
           <a-form-item>
             <a-input-password
               size="large"
-              placeholder="密码"
+              :placeholder="$t('user.login.password.placeholder')"
               v-decorator="[
                 'pwsd',
-                {rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur'}
+                {rules: [{ required: true, message: $t('user.password.required') }], validateTrigger: 'blur'}
               ]"
             >
               <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
@@ -52,7 +52,7 @@
           class="login-button"
           :loading="state.loginBtn"
           :disabled="state.loginBtn"
-        >确定</a-button>
+        >{{ $t('user.login.login') }}</a-button>
       </a-form-item>
     </a-form>
   </div>

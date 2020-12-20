@@ -26,7 +26,6 @@ export default {
     if (!getters.multiTab && !meta.keepAlive) {
       return notKeep
     }
-    console.log('RouteView: ---->' + JSON.stringify(this))
     return this.keepAlive || getters.multiTab || meta.keepAlive ? inKeep : notKeep
   }
 }
