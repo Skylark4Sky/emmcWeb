@@ -124,6 +124,7 @@
         :visible="visible"
         :loading="confirmLoading"
         :model="mdl"
+        rowkey="id"
         @cancel="handleCancel"
         @ok="handleOk"
       />

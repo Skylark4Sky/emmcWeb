@@ -107,6 +107,7 @@
       <transfer-detail
         ref="transferDetail"
         :visible="visible"
+        rowKey="device_sn"
         :loading="confirmLoading"
         :model="mdl"
         @cancel="closeTransferDetail"

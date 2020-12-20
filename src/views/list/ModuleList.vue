@@ -79,6 +79,7 @@
       <s-table
         ref="table"
         size="default"
+        rowKey="id"
         :columns="columns"
         :data="loadData"
         :alert="false"
