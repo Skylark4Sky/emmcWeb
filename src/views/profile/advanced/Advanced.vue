@@ -1,126 +1,34 @@
 <template>
   <page-header-wrapper
-    title="单号：234231029431"
+    title="序号:57ff69067878495148300967"
     :tab-list="tabList"
     :tab-active-key="tabActiveKey"
     @tabChange="handleTabChange"
   >
-    <template v-slot:content>
-      <a-descriptions size="small" :column="isMobile ? 1 : 2">
-        <a-descriptions-item label="创建人">曲丽丽</a-descriptions-item>
-        <a-descriptions-item label="订购产品">XX 服务</a-descriptions-item>
-        <a-descriptions-item label="创建时间">2017-07-07</a-descriptions-item>
-        <a-descriptions-item label="关联单据">
-          <a href="">12421</a>
-        </a-descriptions-item>
-        <a-descriptions-item label="生效日期">2017-07-07 ~ 2017-08-08</a-descriptions-item>
-        <a-descriptions-item label="备注">请于两个工作日内确认</a-descriptions-item>
+    <template v-if="tabActiveKey === 'detail'">
+    <a-card style="margin-top: 24px" :bordered="false" title="状态信息">
+      <a-descriptions :column="1">
+        <a-descriptions-item label="ID">10000000</a-descriptions-item>
+        <a-descriptions-item label="在线状态">在线</a-descriptions-item>
+        <a-descriptions-item label="运行端口">10</a-descriptions-item>
+        <a-descriptions-item label="模组类型">WIFI</a-descriptions-item>
+        <a-descriptions-item label="固件版本">202011042330</a-descriptions-item>
+        <a-descriptions-item label="绑定时间">2020-01-12 13:26</a-descriptions-item>
+        <a-descriptions-item label="连接时间">2020-12-16 14:26</a-descriptions-item>
       </a-descriptions>
-    </template>
-
-    <!-- actions -->
-    <template v-slot:extra>
-      <a-button-group style="margin-right: 4px;">
-        <a-button>操作</a-button>
-        <a-button>操作</a-button>
-        <a-button><a-icon type="ellipsis"/></a-button>
-      </a-button-group>
-      <a-button type="primary" >主操作</a-button>
-    </template>
-
-    <template v-slot:extraContent>
-      <a-row class="status-list">
-        <a-col :xs="12" :sm="12">
-          <div class="text">状态</div>
-          <div class="heading">待审批</div>
-        </a-col>
-        <a-col :xs="12" :sm="12">
-          <div class="text">订单金额</div>
-          <div class="heading">¥ 568.08</div>
-        </a-col>
-      </a-row>
-    </template>
-
-    <a-card :bordered="false" title="流程进度">
-      <a-steps :direction="isMobile && 'vertical' || 'horizontal'" :current="1" progressDot>
-        <a-step>
-          <template v-slot:title>
-            <span>创建项目</span>
-          </template>
-          <template v-slot:description>
-            <div class="antd-pro-pages-profile-advanced-style-stepDescription">
-              曲丽丽<a-icon type="dingding" style="margin-left: 8px;" />
-              <div>2016-12-12 12:32</div>
-            </div>
-          </template>
-        </a-step>
-        <a-step>
-          <template v-slot:title>
-            <span>部门初审</span>
-          </template>
-          <template v-slot:description>
-            <div class="antd-pro-pages-profile-advanced-style-stepDescription">
-              周毛毛<a-icon type="dingding" style="color: rgb(0, 160, 233); margin-left: 8px;" />
-              <div><a>催一下</a></div>
-            </div>
-          </template>
-        </a-step>
-        <a-step title="财务复核" />
-        <a-step title="完成" />
-      </a-steps>
-    </a-card>
-
-    <a-card style="margin-top: 24px" :bordered="false" title="用户信息">
-      <a-descriptions>
-        <a-descriptions-item label="用户姓名">付晓晓</a-descriptions-item>
-        <a-descriptions-item label="会员卡号">32943898021309809423</a-descriptions-item>
-        <a-descriptions-item label="身份证">3321944288191034921</a-descriptions-item>
-        <a-descriptions-item label="联系方式">18112345678</a-descriptions-item>
-        <a-descriptions-item label="联系地址">浙江省杭州市西湖区黄姑山路工专路交叉路口</a-descriptions-item>
-      </a-descriptions>
-      <a-descriptions title="信息组">
-        <a-descriptions-item label="某某数据">725</a-descriptions-item>
-        <a-descriptions-item label="该数据更新时间">2018-08-08</a-descriptions-item>
-        <a-descriptions-item ></a-descriptions-item>
-        <a-descriptions-item label="某某数据">725</a-descriptions-item>
-        <a-descriptions-item label="该数据更新时间">2018-08-08</a-descriptions-item>
-        <a-descriptions-item ></a-descriptions-item>
-      </a-descriptions>
-      <a-card type="inner" title="多层信息组">
-        <a-descriptions title="组名称" size="small">
-          <a-descriptions-item label="负责人">林东东</a-descriptions-item>
-          <a-descriptions-item label="角色码">1234567</a-descriptions-item>
-          <a-descriptions-item label="所属部门">XX公司-YY部</a-descriptions-item>
-          <a-descriptions-item label="过期时间">2018-08-08</a-descriptions-item>
-          <a-descriptions-item label="描述">这段描述很长很长很长很长很长很长很长很长很长很长很长很长很长很长...</a-descriptions-item>
-        </a-descriptions>
         <a-divider style="margin: 16px 0" />
-        <a-descriptions title="组名称" size="small" :col="1">
-          <a-descriptions-item label="学名">	Citrullus lanatus (Thunb.) Matsum. et Nakai一年生蔓生藤本；茎、枝粗壮，具明显的棱。卷须较粗..</a-descriptions-item>
-        </a-descriptions>
-        <a-divider style="margin: 16px 0" />
-        <a-descriptions title="组名称" size="small" :col="2">
-          <a-descriptions-item label="负责人">付小小</a-descriptions-item>
-          <a-descriptions-item label="角色码">1234567</a-descriptions-item>
-        </a-descriptions>
-      </a-card>
-
+      <a-descriptions title="其他信息" :column="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 1, xs: 1 }">
+        <a-descriptions-item label="机器备注">浙江省杭州市西湖区黄姑山路工专路交叉路口</a-descriptions-item>
+        <a-descriptions-item label="投放地址">浙江省杭州市西湖区黄姑山路工专路交叉路口</a-descriptions-item>
+      </a-descriptions>
+      </a-descriptions>
     </a-card>
-
-    <a-card style="margin-top: 24px" :bordered="false" title="用户近半年来电记录">
-      <div class="no-data"><a-icon type="frown-o"/>暂无数据</div>
-    </a-card>
-
-    <!-- 操作 -->
     <a-card
       style="margin-top: 24px"
       :bordered="false"
-      :tabList="operationTabList"
-      :activeTabKey="operationActiveTabKey"
-      @tabChange="(key) => {this.operationActiveTabKey = key}"
+      title="连接日志"
     >
       <a-table
-        v-if="operationActiveTabKey === '1'"
         :columns="operationColumns"
         :dataSource="operation1"
         :pagination="false"
@@ -131,39 +39,59 @@
           <a-badge :status="status | statusTypeFilter" :text="status | statusFilter"/>
         </template>
       </a-table>
-      <a-table
-        v-if="operationActiveTabKey === '2'"
-        :columns="operationColumns"
-        :dataSource="operation2"
-        :pagination="false"
-      >
-        <template
-          slot="status"
-          slot-scope="status">
-          <a-badge :status="status | statusTypeFilter" :text="status | statusFilter"/>
-        </template>
-      </a-table>
-      <a-table
-        v-if="operationActiveTabKey === '3'"
-        :columns="operationColumns"
-        :dataSource="operation3"
-        :pagination="false"
-      >
-        <template
-          slot="status"
-          slot-scope="status">
-          <a-badge :status="status | statusTypeFilter" :text="status | statusFilter"/>
-        </template>
-      </a-table>
     </a-card>
-
+    </template>
+    <template v-if="tabActiveKey === 'rule'">
+      <a-card :bordered="false" >
+        <a-descriptions title="退款申请">
+          <a-descriptions-item label="取货单号">1000000000</a-descriptions-item>
+          <a-descriptions-item label="状态">已取货</a-descriptions-item>
+          <a-descriptions-item label="销售单号">1234123421</a-descriptions-item>
+          <a-descriptions-item label="子订单">3214321432</a-descriptions-item>
+        </a-descriptions>
+        <a-divider style="margin-bottom: 32px"/>
+        <a-descriptions title="用户信息">
+          <a-descriptions-item label="用户姓名">付小小</a-descriptions-item>
+          <a-descriptions-item label="联系电话">18100000000</a-descriptions-item>
+          <a-descriptions-item label="常用快递">菜鸟仓储</a-descriptions-item>
+          <a-descriptions-item label="取货地址">浙江省杭州市西湖区万塘路18号</a-descriptions-item>
+          <a-descriptions-item label="备注">	无</a-descriptions-item>
+        </a-descriptions>
+        <a-divider style="margin-bottom: 32px"/>
+        <div class="title">退货进度</div>
+        <s-table
+          v-if="tabActiveKey === 'rule'"
+          style="margin-bottom: 24px"
+          row-key="id"
+          :columns="goodsColumns"
+          :data="loadGoodsData">
+        </s-table>
+        <div class="title">退货进度</div>
+        <s-table
+          v-if="tabActiveKey === 'rule'"
+          style="margin-bottom: 24px"
+          row-key="key"
+          :columns="scheduleColumns"
+          :data="loadScheduleData">
+          <template
+            slot="status"
+            slot-scope="status">
+            <a-badge :status="status" :text="status | statusFilter"/>
+          </template>
+        </s-table>
+      </a-card>
+    </template>
   </page-header-wrapper>
 </template>
 
 <script>
 import { baseMixin } from '@/store/app-mixin'
+import { STable } from '@/components'
 
 export default {
+  components: {
+    STable
+  },
   name: 'Advanced',
   mixins: [baseMixin],
   data () {
@@ -173,47 +101,194 @@ export default {
         { key: 'rule', tab: '规则' }
       ],
       tabActiveKey: 'detail',
-
-      operationTabList: [
+      goodsColumns: [
         {
-          key: '1',
-          tab: '操作日志一'
+          title: '商品编号',
+          dataIndex: 'id',
+          key: 'id'
         },
         {
-          key: '2',
-          tab: '操作日志二'
-        },
-        {
-          key: '3',
-          tab: '操作日志三'
-        }
-      ],
-      operationActiveTabKey: '1',
-
-      operationColumns: [
-        {
-          title: '操作类型',
-          dataIndex: 'type',
-          key: 'type'
-        },
-        {
-          title: '操作人',
+          title: '商品名称',
           dataIndex: 'name',
           key: 'name'
         },
         {
-          title: '执行结果',
+          title: '商品条码',
+          dataIndex: 'barcode',
+          key: 'barcode'
+        },
+        {
+          title: '单价',
+          dataIndex: 'price',
+          key: 'price',
+          align: 'right'
+        },
+        {
+          title: '数量（件）',
+          dataIndex: 'num',
+          key: 'num',
+          align: 'right'
+        },
+        {
+          title: '金额',
+          dataIndex: 'amount',
+          key: 'amount',
+          align: 'right'
+        }
+      ],
+      // 加载数据方法 必须为 Promise 对象
+      loadGoodsData: () => {
+        return new Promise(resolve => {
+          resolve({
+            data: [
+              {
+                id: '1234561',
+                name: '矿泉水 550ml',
+                barcode: '12421432143214321',
+                price: '2.00',
+                num: '1',
+                amount: '2.00'
+              },
+              {
+                id: '1234562',
+                name: '凉茶 300ml',
+                barcode: '12421432143214322',
+                price: '3.00',
+                num: '2',
+                amount: '6.00'
+              },
+              {
+                id: '1234563',
+                name: '好吃的薯片',
+                barcode: '12421432143214323',
+                price: '7.00',
+                num: '4',
+                amount: '28.00'
+              },
+              {
+                id: '1234564',
+                name: '特别好吃的蛋卷',
+                barcode: '12421432143214324',
+                price: '8.50',
+                num: '3',
+                amount: '25.50'
+              }
+            ],
+            pageSize: 10,
+            pageNo: 1,
+            totalPage: 1,
+            totalCount: 10
+          })
+        }).then(res => {
+          return res
+        })
+      },
+      scheduleColumns: [
+        {
+          title: '时间',
+          dataIndex: 'time',
+          key: 'time'
+        },
+        {
+          title: '当前进度',
+          dataIndex: 'rate',
+          key: 'rate'
+        },
+        {
+          title: '状态',
           dataIndex: 'status',
           key: 'status',
           scopedSlots: { customRender: 'status' }
         },
         {
-          title: '操作时间',
+          title: '操作员ID',
+          dataIndex: 'operator',
+          key: 'operator'
+        },
+        {
+          title: '耗时',
+          dataIndex: 'cost',
+          key: 'cost'
+        }
+      ],
+      loadScheduleData: () => {
+        return new Promise(resolve => {
+          resolve({
+            data: [
+              {
+                key: '1',
+                time: '2017-10-01 14:10',
+                rate: '联系客户',
+                status: 'processing',
+                operator: '取货员 ID1234',
+                cost: '5mins'
+              },
+              {
+                key: '2',
+                time: '2017-10-01 14:05',
+                rate: '取货员出发',
+                status: 'success',
+                operator: '取货员 ID1234',
+                cost: '1h'
+              },
+              {
+                key: '3',
+                time: '2017-10-01 13:05',
+                rate: '取货员接单',
+                status: 'success',
+                operator: '取货员 ID1234',
+                cost: '5mins'
+              },
+              {
+                key: '4',
+                time: '2017-10-01 13:00',
+                rate: '申请审批通过',
+                status: 'success',
+                operator: '系统',
+                cost: '1h'
+              },
+              {
+                key: '5',
+                time: '2017-10-01 12:00',
+                rate: '发起退货申请',
+                status: 'success',
+                operator: '用户',
+                cost: '5mins'
+              }
+            ],
+            pageSize: 10,
+            pageNo: 1,
+            totalPage: 1,
+            totalCount: 10
+          })
+        }).then(res => {
+          return res
+        })
+      },
+      operationColumns: [
+        {
+          title: '序号',
+          dataIndex: 'type',
+          key: 'type'
+        },
+        {
+          title: '模组ID',
+          dataIndex: 'name',
+          key: 'name'
+        },
+        {
+          title: '接入类型',
+          dataIndex: 'status',
+          key: 'status',
+          scopedSlots: { customRender: 'status' }
+        },
+        {
+          title: '连接IP',
           dataIndex: 'updatedAt',
           key: 'updatedAt'
         },
         {
-          title: '备注',
+          title: '连接时间',
           dataIndex: 'remark',
           key: 'remark'
         }
@@ -259,50 +334,6 @@ export default {
           updatedAt: '2017-10-03  19:23:12',
           remark: '-'
         }
-      ],
-      operation2: [
-        {
-          key: 'op2',
-          type: '财务复审',
-          name: '付小小',
-          status: 'reject',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '不通过原因'
-        },
-        {
-          key: 'op3',
-          type: '部门初审',
-          name: '周毛毛',
-          status: 'agree',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '-'
-        },
-        {
-          key: 'op4',
-          type: '提交订单',
-          name: '林东东',
-          status: 'agree',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '很棒'
-        }
-      ],
-      operation3: [
-        {
-          key: 'op2',
-          type: '财务复审',
-          name: '付小小',
-          status: 'reject',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '不通过原因'
-        },
-        {
-          key: 'op3',
-          type: '部门初审',
-          name: '周毛毛',
-          status: 'agree',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '-'
-        }
       ]
     }
   },
@@ -324,7 +355,7 @@ export default {
   },
   methods: {
     handleTabChange (key) {
-      console.log('')
+      console.log('qqqqq:' + key)
       this.tabActiveKey = key
     }
   }
@@ -332,6 +363,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
+  /deep/ .title {
+    color: rgba(0,0,0,.85);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
 
   .detail-layout {
     margin-left: 44px;
