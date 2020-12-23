@@ -14,7 +14,7 @@
         <a-descriptions-item label="模组类型">WIFI</a-descriptions-item>
         <a-descriptions-item label="固件版本">202011042330</a-descriptions-item>
         <a-descriptions-item label="绑定时间">2020-01-12 13:26</a-descriptions-item>
-        <a-descriptions-item label="连接时间">2020-12-16 14:26</a-descriptions-item>
+        <a-descriptions-item label="更新时间">2020-12-16 14:26</a-descriptions-item>
       </a-descriptions>
         <a-divider style="margin: 16px 0" />
       <a-descriptions title="其他信息" :column="{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 1, xs: 1 }">
@@ -268,29 +268,29 @@ export default {
       operationColumns: [
         {
           title: '序号',
-          dataIndex: 'type',
-          key: 'type'
+          dataIndex: 'module_sn',
+          key: 'module_sn'
         },
         {
           title: '模组ID',
-          dataIndex: 'name',
-          key: 'name'
+          dataIndex: 'module_id',
+          key: 'module_id'
         },
         {
           title: '接入类型',
-          dataIndex: 'status',
-          key: 'status',
+          dataIndex: 'access_way',
+          key: 'access_way',
           scopedSlots: { customRender: 'status' }
         },
         {
           title: '连接IP',
-          dataIndex: 'updatedAt',
-          key: 'updatedAt'
+          dataIndex: 'ip',
+          key: 'ip'
         },
         {
           title: '连接时间',
-          dataIndex: 'remark',
-          key: 'remark'
+          dataIndex: 'create_time',
+          key: 'create_time'
         }
       ],
       operation1: [
