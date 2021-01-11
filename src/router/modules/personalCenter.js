@@ -2,36 +2,36 @@ import { RouteView } from './base'
 
 export default
 {
-  path: '/account',
+  path: '/accountManage',
   component: RouteView,
-  redirect: '/account/center',
-  name: 'account',
+  redirect: '/accountManage/center',
+  name: 'accountManage',
   meta: { title: '个人中心', icon: 'edit', permission: [ 'personalCenter' ] },
   children: [
     {
-      path: '/account/settings',
+      path: '/accountManage/settings',
       name: 'settings',
-      component: () => import('@/views/account/settings/Index'),
+      component: () => import('@/gisunlink/accountManage/settings/Index'),
       meta: { title: '个人资料', hideHeader: true, permission: [ 'personalCenter' ] },
-      redirect: '/account/settings/base',
+      redirect: '/accountManage/settings/base',
       hideChildrenInMenu: true,
       children: [
         {
-          path: '/account/settings/base',
+          path: '/accountManage/settings/base',
           name: 'BaseSettings',
-          component: () => import('@/views/account/settings/BaseSetting'),
+          component: () => import('@/gisunlink/accountManage/settings/BaseSetting'),
           meta: { title: '基本资料', hidden: true, permission: [ 'personalInfo' ] }
         },
         {
-          path: '/account/settings/security',
+          path: '/accountManage/settings/security',
           name: 'SecuritySettings',
-          component: () => import('@/views/account/settings/Security'),
+          component: () => import('@/gisunlink/accountManage/settings/Security'),
           meta: { title: '安全设置', hidden: true, permission: [ 'personalSecurity' ] }
         },
         {
-          path: '/account/settings/notification',
+          path: '/accountManage/settings/notification',
           name: 'NotificationSettings',
-          component: () => import('@/views/account/settings/Notification'),
+          component: () => import('@/gisunlink/accountManage/settings/Notification'),
           meta: { title: '新消息通知', hidden: true, permission: [ 'personalNotification' ] }
         }
       ]

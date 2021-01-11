@@ -106,7 +106,7 @@
         </span>
         <span slot="action" slot-scope="text, record">
           <template>
-            <a @click="handleEdit(record)">详情</a>
+            <a @click="handleDeviceInfo(record)">详情</a>
             <a-divider type="vertical" />
             <a-dropdown>
               <a-menu slot="overlay">
@@ -118,7 +118,7 @@
           </template>
         </span>
       </s-table>
-
+<!--
       <create-form
         ref="createModal"
         :visible="visible"
@@ -129,6 +129,7 @@
         @ok="handleOk"
       />
       <step-by-step-modal ref="modal" @ok="handleOk"/>
+      -->
     </a-card>
   </page-header-wrapper>
 </template>
@@ -138,8 +139,8 @@ import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
 import { getDeviceList, syncDeviceStatus } from '@/api/modules/device'
 
-import StepByStepModal from './modules/StepByStepModal'
-import CreateForm from './modules/CreateForm'
+import StepByStepModal from '@/views/list/modules/StepByStepModal'
+import CreateForm from '@/views/list/modules/CreateForm'
 
 const columns = [
   {
@@ -295,57 +296,19 @@ export default {
   },
   methods: {
     moment,
-    handleEdit (record) {
-      this.visible = true
-      this.mdl = { ...record }
-    },
-    handleOk () {
-      const form = this.$refs.createModal.form
-      this.confirmLoading = true
-      form.validateFields((errors, values) => {
-        if (!errors) {
-          if (values.id > 0) {
-            // 修改 e.g.
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                resolve()
-              }, 1000)
-            }).then(res => {
-              this.visible = false
-              this.confirmLoading = false
-              // 重置表单数据
-              form.resetFields()
-              // 刷新表格
-              this.$refs.table.refresh()
-
-              this.$message.info('修改成功')
-            })
-          } else {
-            // 新增
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                resolve()
-              }, 1000)
-            }).then(res => {
-              this.visible = false
-              this.confirmLoading = false
-              // 重置表单数据
-              form.resetFields()
-              // 刷新表格
-              this.$refs.table.refresh()
-
-              this.$message.info('新增成功')
-            })
-          }
-        } else {
-          this.confirmLoading = false
+    handleDeviceInfo (record) {
+      const { pageNum } = this.$route.params
+      this.$router.push({
+        path: '/deviceManage/deviceList/deviceInfo',
+        name: 'deviceInfo',
+        params: {
+          curPagePath: '/deviceManage/deviceList/',
+          curPageName: 'deviceList',
+          curPageNum: pageNum,
+          curRequestCond: this.requestCond,
+          deviceInfo: record
         }
       })
-    },
-    handleCancel () {
-      this.visible = false
-      const form = this.$refs.createModal.form
-      form.resetFields() // 清理表单数据（可不做）
     },
     handleModuleSearchView (record) {
       const { pageNum } = this.$route.params

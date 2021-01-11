@@ -1,3 +1,6 @@
+
+// 从lodash中引入深拷贝
+import cloneDeep from 'lodash.clonedeep'
 import { asyncRouterMap, constantRouterMap } from '@/router/router.config'
 
 /**
@@ -38,7 +41,8 @@ function hasRole(roles, route) {
 }
 
 function filterAsyncRouter (routerMap, roles) {
-  const accessedRouters = routerMap.filter(route => {
+  const asyncRouterMap = cloneDeep(routerMap)
+  const accessedRouters = asyncRouterMap.filter(route => {
     if (hasPermission(roles.permissionList, route)) {
       if (route.children && route.children.length) {
         route.children = filterAsyncRouter(route.children, roles)
@@ -66,6 +70,8 @@ const permission = {
       return new Promise(resolve => {
         const { roles } = data
         const accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
+        // console.log('roles: ' + JSON.stringify(roles))
+        // console.log('accessedRouters: ' + JSON.stringify(accessedRouters))
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })

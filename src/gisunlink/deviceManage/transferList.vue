@@ -120,7 +120,7 @@
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
 import { getDeviceTransferLogList } from '@/api/modules/device'
-import TransferDetail from './modules/transferDetailPage'
+import TransferDetail from '@/gisunlink/deviceManage/transferDetail'
 
 const columns = [
   {

@@ -12,14 +12,14 @@ export default
       path: '/userManage/userList/:pageNo([1-9]\\d*)?',
       name: 'userList',
       hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-      component: () => import('@/views/list/TableList'),
+      component: () => import('@/gisunlink/userManage/userList'),
       meta: { title: '用户列表', permission: [ 'userList' ] }
     },
     {
       path: '/userManage/userOrder/:pageNo([1-9]\\d*)?',
       name: 'userOrder',
       hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
-      component: () => import('@/views/list/TableList'),
+      component: () => import('@/gisunlink/userManage/userList'),
       meta: { title: '用户交易', permission: [ 'userOrder' ] }
     }
   ]

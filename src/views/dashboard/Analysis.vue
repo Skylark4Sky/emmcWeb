@@ -66,7 +66,7 @@
     <a-card :loading="loading" :bordered="false" :body-style="{padding: '0'}">
       <div class="salesCard">
         <a-tabs default-active-key="1" size="large" :tab-bar-style="{marginBottom: '24px', paddingLeft: '16px'}">
-          <div class="extra-wrapper" slot="tabBarExtraContent">
+          <div class="extra-wrapper" slot="tabBarExtraContent" v-if="!isMobile" >
             <div class="extra-item">
               <a>{{ $t('dashboard.analysis.all-day') }}</a>
               <a>{{ $t('dashboard.analysis.all-week') }}</a>

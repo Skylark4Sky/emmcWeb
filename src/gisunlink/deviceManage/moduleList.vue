@@ -114,6 +114,7 @@
     {
       title: '联网模式',
       dataIndex: 'access_way',
+      align: 'center',
       scopedSlots: { customRender: 'access_way' }
     },
     {
@@ -143,8 +144,9 @@
       scopedSlots: { customRender: 'time' }
     },
     {
-      title: '操作',
+      title: '连接日志',
       dataIndex: 'action',
+      align: 'center',
       scopedSlots: { customRender: 'action' }
     }
   ]
