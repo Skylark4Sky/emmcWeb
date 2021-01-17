@@ -6,12 +6,13 @@
   >
 
     <template v-slot:extra>
-      <a-button-group style="margin-right: 4px;">
-        <a-button>充电</a-button>
-        <a-button>停止</a-button>
-        <a-button>
-          <a-icon type="ellipsis"/>
-        </a-button>
+      <a-button-group v-if="tabActiveKey === 'detail'" style="margin-right: 4px;">
+        <a-button>修改备注</a-button>
+        <a-button>修改地址</a-button>
+        <a-button>修改空载时间</a-button>
+<!--        <a-button>-->
+<!--          <a-icon type="ellipsis"/>-->
+<!--        </a-button>-->
       </a-button-group>
       <a-button  v-if="showBackBtn"  type="primary" @click="goBackPrevious">返回上一页</a-button>
     </template>
