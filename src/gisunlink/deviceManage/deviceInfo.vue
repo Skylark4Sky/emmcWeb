@@ -40,19 +40,19 @@
       <a-card
         style="margin-top: 24px"
         :bordered="false"
-        title="连接日志"
+        title="充电日志"
       >
-        <a-table
-          :columns="connetColumns"
-          :dataSource="loadConnetData"
-          :pagination="false"
-        >
+        <s-table
+          style="margin-bottom: 24px"
+          row-key="key"
+          :columns="chargeColumns"
+          :data="loadChargeData">
           <template
             slot="status"
             slot-scope="status">
-            <a-badge :status="status | statusTypeFilter" :text="status | statusFilter"/>
+            <a-badge :status="status" :text="status | statusFilter"/>
           </template>
-        </a-table>
+        </s-table>
       </a-card>
     </template>
 
@@ -65,19 +65,6 @@
           row-key="id"
           :columns="comStatusColumns"
           :data="loadComStatusData">
-        </s-table>
-        <div class="title">充电日志</div>
-        <s-table
-          v-if="tabActiveKey === 'comStatus'"
-          style="margin-bottom: 24px"
-          row-key="key"
-          :columns="chargeColumns"
-          :data="loadChargeData">
-          <template
-            slot="status"
-            slot-scope="status">
-            <a-badge :status="status" :text="status | statusFilter"/>
-          </template>
         </s-table>
       </a-card>
     </template>
@@ -248,6 +235,12 @@
             key: 'state'
           },
           {
+            title: '刷新时间',
+            // 0 - average_power - max_power
+            dataIndex: 'update_time',
+            key: 'update_time'
+          },
+          {
             title: '开始时间',
             // 0 - average_power - max_power
             dataIndex: 'create_time',
@@ -313,77 +306,7 @@
           }).then(res => {
             return res
           })
-        },
-        connetColumns: [
-          {
-            title: '序号',
-            dataIndex: 'module_sn',
-            key: 'module_sn'
-          },
-          {
-            title: '模组ID',
-            dataIndex: 'module_id',
-            key: 'module_id'
-          },
-          {
-            title: '接入类型',
-            dataIndex: 'access_way',
-            key: 'access_way',
-            scopedSlots: { customRender: 'status' }
-          },
-          {
-            title: '连接IP',
-            dataIndex: 'ip',
-            key: 'ip'
-          },
-          {
-            title: '连接时间',
-            dataIndex: 'create_time',
-            key: 'create_time'
-          }
-        ],
-        loadConnetData: [
-          {
-            key: 'op1',
-            type: '订购关系生效',
-            name: '曲丽丽',
-            status: 'agree',
-            updatedAt: '2017-10-03  19:23:12',
-            remark: '-'
-          },
-          {
-            key: 'op2',
-            type: '财务复审',
-            name: '付小小',
-            status: 'reject',
-            updatedAt: '2017-10-03  19:23:12',
-            remark: '不通过原因'
-          },
-          {
-            key: 'op3',
-            type: '部门初审',
-            name: '周毛毛',
-            status: 'agree',
-            updatedAt: '2017-10-03  19:23:12',
-            remark: '-'
-          },
-          {
-            key: 'op4',
-            type: '提交订单',
-            name: '林东东',
-            status: 'agree',
-            updatedAt: '2017-10-03  19:23:12',
-            remark: '很棒'
-          },
-          {
-            key: 'op5',
-            type: '创建订单',
-            name: '汗牙牙',
-            status: 'agree',
-            updatedAt: '2017-10-03  19:23:12',
-            remark: '-'
-          }
-        ]
+        }
       }
     },
     filters: {
