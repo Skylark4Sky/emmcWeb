@@ -34,8 +34,8 @@ export default
     {
       path: '/deviceManage/deviceCharge/:pageNum([1-9]\\d*)?',
       name: 'deviceCharge',
-      component: () => import('@/gisunlink/deviceManage/deviceCharge'),
-      meta: { title: '充电状态', permission: [ 'deviceCharge' ] }
+      component: () => import('@/gisunlink/deviceManage/deviceChargeList'),
+      meta: { title: '充电列表', permission: [ 'deviceCharge' ] }
     },
     {
       path: '/deviceManage/moduleList/:pageNum([1-9]\\d*)?',

@@ -2,7 +2,7 @@ import request from '@/api/request'
 
 const deviceApi = {
   GetDeviceCom: '/device/getDeviceCom',
-  GetDeviceCharge: '/device/getDeviceCharge',
+  GetDeviceChargeList: '/device/getDeviceChargeList',
   GetDeviceList: '/device/getDeviceList',
   GetDeviceTransferLogList: '/device/getDeviceTransferLog',
   SyncDeviceStatus: '/device/syncDeviceStatus'
@@ -16,9 +16,9 @@ export function getDeviceCom (parameter) {
   })
 }
 
-export function getDeviceCharge (parameter) {
+export function getDeviceChargeList (parameter) {
   return request({
-    url: deviceApi.GetDeviceCharge,
+    url: deviceApi.GetDeviceChargeList,
     method: 'post',
     data: parameter
   })
