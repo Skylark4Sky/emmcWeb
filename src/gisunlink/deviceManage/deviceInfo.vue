@@ -10,11 +10,11 @@
         <a-button>修改备注</a-button>
         <a-button>修改地址</a-button>
         <a-button>修改空载时间</a-button>
-<!--        <a-button>-->
-<!--          <a-icon type="ellipsis"/>-->
-<!--        </a-button>-->
+        <!--        <a-button>-->
+        <!--          <a-icon type="ellipsis"/>-->
+        <!--        </a-button>-->
       </a-button-group>
-      <a-button  v-if="showBackBtn"  type="primary" @click="goBackPrevious">返回上一页</a-button>
+      <a-button v-if="showBackBtn" type="primary" @click="goBackPrevious">返回上一页</a-button>
     </template>
 
     <template v-if="tabActiveKey === 'detail'">
@@ -94,7 +94,7 @@
     components: {
       STable
     },
-    name: 'deviceInfo',
+    name: 'DeviceInfo',
     mixins: [baseMixin],
     showBackBtn: false,
     deviceInfo: null,

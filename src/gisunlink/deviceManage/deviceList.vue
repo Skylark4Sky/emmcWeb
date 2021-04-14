@@ -11,13 +11,13 @@
             </a-col>
 
             <a-col :md="8" :sm="24">
-                <a-form-item label="设备状态码">
-                  <a-select v-model="requestCond.status" placeholder="选择状态" default-value="255">
-                    <a-select-option value="255">按全部状态</a-select-option>
-                    <a-select-option value="0">按离线状态</a-select-option>
-                    <a-select-option value="1">按在线状态</a-select-option>
-                    <a-select-option value="2">按工作状态</a-select-option>
-                  </a-select>
+              <a-form-item label="设备状态码">
+                <a-select v-model="requestCond.status" placeholder="选择状态" default-value="255">
+                  <a-select-option value="255">按全部状态</a-select-option>
+                  <a-select-option value="0">按离线状态</a-select-option>
+                  <a-select-option value="1">按在线状态</a-select-option>
+                  <a-select-option value="2">按工作状态</a-select-option>
+                </a-select>
               </a-form-item>
             </a-col>
             <template v-if="advanced">
@@ -63,7 +63,7 @@
 
               <a-col :md="8" :sm="24">
                 <a-form-item label="固件版本">
-                <a-input v-model="requestCond.device_version" placeholder=""/>
+                  <a-input v-model="requestCond.device_version" placeholder=""/>
                 </a-form-item>
               </a-col>
             </template>
@@ -118,7 +118,7 @@
           </template>
         </span>
       </s-table>
-<!--
+      <!--
       <create-form
         ref="createModal"
         :visible="visible"

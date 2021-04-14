@@ -9,7 +9,7 @@
         <div class="top">
           <div class="header">
             <a href="/">
-<!--              <img src="~@/assets/logo.svg" class="logo" alt="logo">-->
+              <!--              <img src="~@/assets/logo.svg" class="logo" alt="logo">-->
               <span class="title">GisunLink</span>
             </a>
           </div>
@@ -21,11 +21,11 @@
         <router-view />
 
         <div class="footer">
-<!--          <div class="links">-->
-<!--            <a href="_self">帮助</a>-->
-<!--            <a href="_self">隐私</a>-->
-<!--            <a href="_self">条款</a>-->
-<!--          </div>-->
+          <!--          <div class="links">-->
+          <!--            <a href="_self">帮助</a>-->
+          <!--            <a href="_self">隐私</a>-->
+          <!--            <a href="_self">条款</a>-->
+          <!--          </div>-->
           <div class="copyright">
             Copyright &copy; 2020 GisunLink
           </div>

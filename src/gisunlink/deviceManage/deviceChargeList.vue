@@ -11,19 +11,19 @@
             </a-col>
 
             <a-col :md="8" :sm="24">
-                <a-form-item label="充电状态">
-                  <a-select v-model="requestCond.state" placeholder="选择状态" default-value="0">
-                    <a-select-option value="0">按全部状态</a-select-option>
-                    <a-select-option value="1">下发开始充电</a-select-option>
-                    <a-select-option value="2">设备开始充电</a-select-option>
-                    <a-select-option value="4">下发停止充电</a-select-option>
-                    <a-select-option value="8">设备停止充电</a-select-option>
-                    <a-select-option value="16">已充电中</a-select-option>
-                    <a-select-option value="32">充电完成</a-select-option>
-                    <a-select-option value="64">触发空载</a-select-option>
-                    <a-select-option value="128">触发异常</a-select-option>
-                    <a-select-option value="256">异常退出</a-select-option>
-                  </a-select>
+              <a-form-item label="充电状态">
+                <a-select v-model="requestCond.state" placeholder="选择状态" default-value="0">
+                  <a-select-option value="0">按全部状态</a-select-option>
+                  <a-select-option value="1">下发开始充电</a-select-option>
+                  <a-select-option value="2">设备开始充电</a-select-option>
+                  <a-select-option value="4">下发停止充电</a-select-option>
+                  <a-select-option value="8">设备停止充电</a-select-option>
+                  <a-select-option value="16">已充电中</a-select-option>
+                  <a-select-option value="32">充电完成</a-select-option>
+                  <a-select-option value="64">触发空载</a-select-option>
+                  <a-select-option value="128">触发异常</a-select-option>
+                  <a-select-option value="256">异常退出</a-select-option>
+                </a-select>
               </a-form-item>
             </a-col>
             <template v-if="advanced">

@@ -7,42 +7,42 @@
       :form="form"
       @submit="handleSubmit"
     >
-          <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin/ant.design )" />
-          <a-form-item>
-            <a-input
-              size="large"
-              type="text"
-              :placeholder="$t('user.login.username.placeholder')"
-              v-decorator="[
-                'account',
-                {rules: [{ required: true, message: $t('user.userName.required') }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
-              ]"
-            >
-              <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-            </a-input>
-          </a-form-item>
+      <a-alert v-if="isLoginError" type="error" showIcon style="margin-bottom: 24px;" message="账户或密码错误（admin/ant.design )" />
+      <a-form-item>
+        <a-input
+          size="large"
+          type="text"
+          :placeholder="$t('user.login.username.placeholder')"
+          v-decorator="[
+            'account',
+            {rules: [{ required: true, message: $t('user.userName.required') }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
+          ]"
+        >
+          <a-icon slot="prefix" type="user" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+        </a-input>
+      </a-form-item>
 
-          <a-form-item>
-            <a-input-password
-              size="large"
-              :placeholder="$t('user.login.password.placeholder')"
-              v-decorator="[
-                'pwsd',
-                {rules: [{ required: true, message: $t('user.password.required') }], validateTrigger: 'blur'}
-              ]"
-            >
-              <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
-            </a-input-password>
-          </a-form-item>
+      <a-form-item>
+        <a-input-password
+          size="large"
+          :placeholder="$t('user.login.password.placeholder')"
+          v-decorator="[
+            'pwsd',
+            {rules: [{ required: true, message: $t('user.password.required') }], validateTrigger: 'blur'}
+          ]"
+        >
+          <a-icon slot="prefix" type="lock" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+        </a-input-password>
+      </a-form-item>
 
-<!--      <a-form-item>-->
-<!--        <a-checkbox v-decorator="['rememberMe', { valuePropName: 'checked' }]">自动登录</a-checkbox>-->
-<!--        <router-link-->
-<!--          :to="{ name: 'recover', params: { user: 'aaa'} }"-->
-<!--          class="forge-password"-->
-<!--          style="float: right;"-->
-<!--        >忘记密码</router-link>-->
-<!--      </a-form-item>-->
+      <!--      <a-form-item>-->
+      <!--        <a-checkbox v-decorator="['rememberMe', { valuePropName: 'checked' }]">自动登录</a-checkbox>-->
+      <!--        <router-link-->
+      <!--          :to="{ name: 'recover', params: { user: 'aaa'} }"-->
+      <!--          class="forge-password"-->
+      <!--          style="float: right;"-->
+      <!--        >忘记密码</router-link>-->
+      <!--      </a-form-item>-->
 
       <a-form-item style="margin-top:24px">
         <a-button
