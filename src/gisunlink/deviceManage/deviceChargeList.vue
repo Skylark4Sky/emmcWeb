@@ -107,7 +107,6 @@
         </span>
         <span slot="state_value" slot-scope="text, record">
           <template>
-            <a-divider type="vertical" />
             <a-dropdown>
               <a-menu slot="overlay">
                 <a-menu-item v-for="( item, index ) in stateValueOps(record.state)" :key="index">
@@ -294,8 +293,6 @@ export default {
       if (state & 256) {
         array.push({ 'name': '异常退出' })
       }
-
-      console.log(array)
       return array
     },
     syncDeviceStatus () {

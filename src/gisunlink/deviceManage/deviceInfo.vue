@@ -48,11 +48,36 @@
           row-key="key"
           :columns="chargeColumns"
           :data="loadChargeData">
-          <template
-            slot="status"
-            slot-scope="status">
+          <template slot="status" slot-scope="status">
             <a-badge :status="status" :text="status | statusFilter"/>
           </template>
+          <span slot="energyData" slot-scope="record">
+          <font color="#FF3030">{{ record.max_energy }}</font> <br/> <font color="#00CD66">{{ record.use_energy }}</font>
+        </span>
+          <span slot="timeData" slot-scope="record">
+          <font color="#FF3030">{{ record.max_time }}</font> <br/> <font color="#00CD66">{{ record.use_time }}</font>
+        </span>
+          <span slot="electricityData" slot-scope="record">
+          <font color="#FF3030">{{ record.max_electricity }}</font> <br/> <font color="#00CD66">{{ record.max_charge_electricity }}</font>
+        </span>
+          <span slot="powerData" slot-scope="record">
+          <font color="#FF3030">{{ record.max_power }}</font>  <br/>  <font color="#00CD66">{{ record.average_power }}</font>
+        </span>
+          <span slot="time" slot-scope="text">
+          {{ text | timeFilter }}
+        </span>
+          <span slot="state_value" slot-scope="text, record">
+          <template>
+            <a-dropdown>
+              <a-menu slot="overlay">
+                <a-menu-item v-for="( item, index ) in stateValueOps(record.state)" :key="index">
+                  <a href="javascript:;">{{ item.name }}</a>
+                </a-menu-item>
+              </a-menu>
+              <a>{{ text }}<a-icon type="down"/></a>
+            </a-dropdown>
+          </template>
+        </span>
         </s-table>
       </a-card>
     </template>
@@ -89,6 +114,7 @@
   import moment from 'moment'
   import { baseMixin } from '@/store/app-mixin'
   import { STable } from '@/components'
+  import { getDeviceChargeList } from '@/api/modules/device'
 
   export default {
     components: {
@@ -190,127 +216,90 @@
         },
         chargeColumns: [
           {
-            title: '充电编号',
-            dataIndex: 'id',
-            key: 'id'
-          },
-          {
-            title: '充电令牌',
-            dataIndex: 'token',
-            key: 'token'
-          },
-          {
-            title: '充电端口',
+            title: '端口',
             dataIndex: 'com_id',
-            key: 'com_id',
-            scopedSlots: { customRender: 'status' }
+            align: 'center'
           },
           {
-            title: '电能限制',
-            // - max_energy
-            dataIndex: 'max_energy',
-            key: 'max_energy'
+            title: '度数',
+            scopedSlots: { customRender: 'energyData' }
           },
           {
-            title: '用时限制',
-            // - use_time
-            dataIndex: 'max_time',
-            key: 'max_time'
+            title: '电流',
+            scopedSlots: { customRender: 'electricityData' }
           },
           {
-            title: '电流限制',
-            // - max_charge_electricity
-            dataIndex: 'max_electricity',
-            key: 'max_electricity'
+            title: '电压',
+            scopedSlots: { customRender: 'powerData' }
           },
           {
-            title: '功率状态',
-            // 0 - average_power - max_power
-            dataIndex: 'average_power',
-            key: 'average_power'
+            title: '计时',
+            scopedSlots: { customRender: 'timeData' }
           },
           {
-            title: '充电状态',
-            // 0 - average_power - max_power
+            title: '状态',
             dataIndex: 'state',
-            key: 'state'
-          },
-          {
-            title: '刷新时间',
-            // 0 - average_power - max_power
-            dataIndex: 'update_time',
-            key: 'update_time'
+            scopedSlots: { customRender: 'state_value' },
+            align: 'center'
           },
           {
             title: '开始时间',
-            // 0 - average_power - max_power
             dataIndex: 'create_time',
-            key: 'create_time'
+            sorter: true,
+            sortOrder: false,
+            sortDirections: ['descend', 'ascend'],
+            scopedSlots: { customRender: 'time' }
+          },
+          {
+            title: '更新时间',
+            dataIndex: 'update_time',
+            sorter: true,
+            sortOrder: false,
+            sortDirections: ['descend', 'ascend'],
+            scopedSlots: { customRender: 'time' }
           },
           {
             title: '结束时间',
-            // 0 - average_power - max_power
             dataIndex: 'end_time',
-            key: 'end_time'
+            sorter: true,
+            sortOrder: false,
+            sortDirections: ['descend', 'ascend'],
+            scopedSlots: { customRender: 'time' }
           }
         ],
-        loadChargeData: () => {
-          return new Promise(resolve => {
-            resolve({
-              data: [
-                {
-                  key: '1',
-                  time: '2017-10-01 14:10',
-                  rate: '联系客户',
-                  status: 'processing',
-                  operator: '取货员 ID1234',
-                  cost: '5mins'
-                },
-                {
-                  key: '2',
-                  time: '2017-10-01 14:05',
-                  rate: '取货员出发',
-                  status: 'success',
-                  operator: '取货员 ID1234',
-                  cost: '1h'
-                },
-                {
-                  key: '3',
-                  time: '2017-10-01 13:05',
-                  rate: '取货员接单',
-                  status: 'success',
-                  operator: '取货员 ID1234',
-                  cost: '5mins'
-                },
-                {
-                  key: '4',
-                  time: '2017-10-01 13:00',
-                  rate: '申请审批通过',
-                  status: 'success',
-                  operator: '系统',
-                  cost: '1h'
-                },
-                {
-                  key: '5',
-                  time: '2017-10-01 12:00',
-                  rate: '发起退货申请',
-                  status: 'success',
-                  operator: '用户',
-                  cost: '5mins'
-                }
-              ],
-              pageSize: 10,
-              pageNo: 1,
-              totalPage: 1,
-              totalCount: 10
+        requestCond: { 'charge_over': '0', 'state': '0', 'sortField': 'create_time', 'sortOrder': 'descend' },
+        loadChargeData: parameter => {
+          const requestParameters = Object.assign({}, { userID: this.$store.getters.userID }, parameter)
+          if (Object.keys(this.requestCond).length !== 0) {
+            if (requestParameters.requestCond !== null) {
+              requestParameters.requestCond = Object.assign({}, this.requestCond, requestParameters.requestCond, { device_id: this.deviceInfo.id })
+            } else {
+              requestParameters.requestCond = Object.assign({}, this.requestCond, { device_id: this.deviceInfo.id })
+            }
+
+            if (requestParameters.requestCond.startTime !== null && requestParameters.requestCond.startTime !== undefined) {
+              requestParameters.requestCond.startTime = moment(requestParameters.requestCond.startTime).format('x')
+            }
+
+            if (requestParameters.requestCond.endTime !== null && requestParameters.requestCond.endTime !== undefined) {
+              requestParameters.requestCond.endTime = moment(requestParameters.requestCond.endTime).format('x')
+            }
+          }
+
+          console.log(requestParameters)
+          return getDeviceChargeList(requestParameters)
+            .then(res => {
+              return res.data
             })
-          }).then(res => {
-            return res
-          })
         }
       }
     },
     filters: {
+      timeFilter (timestamp) {
+        if (timestamp > 0) {
+          return moment(timestamp).format('YYYYMMDD HH:mm:ss')
+        }
+      },
       statusFilter (status) {
         const statusMap = {
           'agree': '成功',
@@ -331,8 +320,8 @@
       if (deviceInfo === undefined) {
         this.$router.go(-1)
       }
-      console.log('deviceInfo: ' + JSON.stringify(deviceInfo))
       this.deviceInfo = deviceInfo
+      // console.log('deviceInfo: ' + JSON.stringify(this.deviceInfo))
       this.showBackBtn = true
     },
     methods: {
@@ -369,6 +358,37 @@
             break
         }
         return text
+      },
+      stateValueOps (state) {
+        var array = []
+        if (state & 1) {
+          array.push({ 'name': '下发开始充电' })
+        }
+        if (state & 2) {
+          array.push({ 'name': '设备开始充电' })
+        }
+        if (state & 16) {
+          array.push({ 'name': '已充电中' })
+        }
+        if (state & 4) {
+          array.push({ 'name': '下发停止充电' })
+        }
+        if (state & 8) {
+          array.push({ 'name': '设备停止充电' })
+        }
+        if (state & 32) {
+          array.push({ 'name': '充电完成' })
+        }
+        if (state & 64) {
+          array.push({ 'name': '触发空载' })
+        }
+        if (state & 128) {
+          array.push({ 'name': '触发异常' })
+        }
+        if (state & 256) {
+          array.push({ 'name': '异常退出' })
+        }
+        return array
       },
       goBackPrevious () {
         const { curPageNum, curPageName, curPagePath, curRequestCond, curShowBackBtn, otherRouterParam } = this.$route.params
